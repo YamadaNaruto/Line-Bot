@@ -7,10 +7,25 @@ function moringNotification(){
     const todayEvs = getTodayEvents();
     const reminders = getUpcomingReminders();
 
-    let msg = `[今日は]${FormData(today)}\n`;
+    let msg = `[今日は]${Utilities.formatDate(today, 'Asia/Tokyo', 'M/d (E)')}\n`;
     msg += '-------------------------\n';
     msg += weather+ '\n\n';
 
-    msg 
+    msg += '今日のスケジュール\n';
+    msg += todayEvs.length
+        ? todayEvs.map(e => `${e.time} ${e.title}`).join('\n')
+        : 'enjoy freely today';
 
+    if (reminders.length > 0) {
+        msg += '\n\nリマインダー\n';
+        msg += reminders.map(r =>
+            `[${r.days}日後] ${r.title} (${Utilities.formatDate(r.date, 'Asia/Tokyo', 'M/d')})`
+        ).join('\n');
+    }
+    sendLine(msg);
+    console.log(msg);
+
+}
+function doGet() {
+  return ContentService.createTextOutput('LINE Bot is running');
 }
