@@ -22,8 +22,8 @@ function moringNotification(){
             `[${r.days}日後] ${r.title} (${Utilities.formatDate(r.date, 'Asia/Tokyo', 'M/d')})`
         ).join('\n');
     }
-    sendLine(msg);
-    console.log(msg);
+   sendLine(msg);
+   console.log(msg);
 
 }
 function doGet() {
